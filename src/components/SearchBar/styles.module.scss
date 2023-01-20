@@ -1,0 +1,15 @@
+.element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 30vw;
+
+  img {
+    width: 2vw;
+    height: 2vw;
+  }
+
+  p {
+    margin-left: 1vw;
+  }
+}
