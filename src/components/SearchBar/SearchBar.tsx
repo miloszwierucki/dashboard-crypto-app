@@ -1,69 +1,49 @@
 import { FC, useState } from "react";
-import { updatePrice } from "./updatePrice";
+import { searchList } from "./searchList";
 import styles from "./styles.module.scss";
-import { IToken } from "./updatePrice";
+import { ITokenSearch } from "./searchList";
 
-interface ITokenElement extends IToken {
-  isAcitive: boolean;
-}
-
-const ListElement: FC<ITokenElement> = ({
-  symbol,
-  name,
-  image,
-  price,
-  isAcitive,
-}) => {
+const ListElement: FC<ITokenSearch> = ({ name }) => {
   return (
-    <>
-      {isAcitive ? (
-        <li className={styles.element}>
-          <img src={image} alt={name} />
-          <p>{symbol}</p>
-          <p>{name}</p>
-          <p>{price}</p>
-        </li>
-      ) : (
-        <></>
-      )}
-    </>
+    <li className={styles.element}>
+      <button>{name}</button>
+    </li>
   );
 };
 
 export const SearchBar = () => {
-  const [count, setCount] = useState(0);
-  const [isAcitive, setIsAcitive] = useState(false);
-  const [tokens, setTokens] = useState<IToken[]>([]);
+  const [tokens, setTokens] = useState([] as ITokenSearch[]);
+  const [search, setSearch] = useState("");
   return (
-    <div>
+    <div className={styles["search-section"]}>
       <input
         type="text"
         placeholder="Search..."
-        onFocus={() => {
-          setIsAcitive(!isAcitive);
+        onChange={(e) => {
+          setSearch(e.target.value);
         }}
       />
       <button
         onClick={async () => {
-          setCount((count) => count + 1);
-          const array: IToken[] = await updatePrice(count);
-          setTokens([...tokens, ...array]);
+          const array: ITokenSearch[] = await searchList();
+          setTokens([...array]);
 
           console.log(tokens);
         }}
-      ></button>
-      {tokens.map(({ symbol, name, image, price }) => {
-        return (
-          <ListElement
-            key={symbol}
-            symbol={symbol}
-            name={name}
-            image={image}
-            price={price}
-            isAcitive={isAcitive}
-          />
-        );
-      })}
+      >
+        Fetch Data
+      </button>
+      {search && (
+        <ul className={styles.list}>
+          {tokens
+            .filter((element) =>
+              element.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map(({ id, name }) => {
+              return <ListElement key={id} name={name} />;
+            })}
+        </ul>
+      )}
     </div>
   );
 };
