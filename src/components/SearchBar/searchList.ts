@@ -2,7 +2,7 @@ import axios from "axios";
 
 export interface ITokenSearch {
   name: string;
-  id?: string;
+  id: string;
 }
 
 export const searchList = async () => {
@@ -11,8 +11,8 @@ export const searchList = async () => {
     const data = res.data;
     data.forEach((element: any) => {
       const token = {
-        symbol: element.symbol,
         name: element.name,
+        id: element.id,
       };
       tokensTemp.push(token);
     });

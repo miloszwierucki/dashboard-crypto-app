@@ -7,19 +7,19 @@
   position: relative;
 }
 
-
 .list {
   padding: 0;
   width: 27vw;
-  height: 200px;
+  min-height: 2.5em;
+  max-height: 10em;
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
+  border-radius: 8px;
   top: 2.5em;
   background-color: #f9f9f9;
+  transition: hight 2s;
 }
-
-
 
 button, input {
   border-radius: 8px;
@@ -54,6 +54,30 @@ button:focus-visible {
   flex-direction: row;
   align-items: center;
   width: 30vw;
+  padding: 0.3em;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.element:hover {
+  border: #646cff solid 1px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C2C2C2;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 @media (prefers-color-scheme: light) {

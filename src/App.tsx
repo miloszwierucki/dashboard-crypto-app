@@ -1,15 +1,16 @@
 import { useState } from "react";
-import "./App.css";
+import styles from "./app.module.scss";
 import { SearchBar } from "./components/SearchBar/SearchBar";
+import { TokenSection } from "./components/TokenSection/TokenSection";
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
       <div>
         <SearchBar />
       </div>
       <h1>Dashboard</h1>
-      <div className="card"></div>
+      <TokenSection />
     </div>
   );
 }
