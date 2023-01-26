@@ -6,6 +6,7 @@ import { IToken } from "../../App";
 interface ITokenElement extends IMyToken {
   selectedTokens: IToken[];
   myTokens: IMyToken[];
+  setSum: React.Dispatch<number>;
   setMyTokens: React.Dispatch<React.SetStateAction<IMyToken[]>>;
 }
 
@@ -19,6 +20,7 @@ const TokenElement: FC<ITokenElement> = ({
   priceChange,
   selectedTokens,
   myTokens,
+  setSum,
   setMyTokens,
 }) => {
   const [input, setInput] = useState(amount?.toString());
@@ -42,6 +44,13 @@ const TokenElement: FC<ITokenElement> = ({
         placeholder="..."
         onChange={(e) => {
           setInput(e.target.value);
+          selectedTokens.find((element) => element.id === id)!.sum =
+            Number(e.target.value) * price;
+          const sum = selectedTokens.reduce((acc, element) => {
+            return acc + element.sum;
+          }, 0);
+          localStorage.setItem("sum", JSON.stringify(sum));
+          setSum(sum);
           if (selectedTokens) {
             selectedTokens.find((element) => element.id === id)!.amount =
               Number(e.target.value);
@@ -85,6 +94,9 @@ export const TokenSection: FC<{
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ selectedTokens, reload, setReload }) => {
   const [myToken, setMyToken] = useState([] as IMyToken[]);
+  const [sum, setSum] = useState(
+    localStorage.getItem("sum") ? JSON.parse(localStorage.getItem("sum")!) : 0
+  ) as [number, React.Dispatch<number>];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -101,6 +113,7 @@ export const TokenSection: FC<{
   return (
     <>
       <h2>My Tokens</h2>
+      <h3>Sum: {sum.toFixed(2)}$</h3>
       <ul>
         {myToken.map(({ id, name, image, symbol, price, priceChange }) => {
           return (
@@ -118,6 +131,7 @@ export const TokenSection: FC<{
               selectedTokens={selectedTokens}
               myTokens={myToken}
               setMyTokens={setMyToken}
+              setSum={setSum}
             />
           );
         })}

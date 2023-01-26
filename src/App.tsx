@@ -6,6 +6,7 @@ import { TokenSection } from "./components/TokenSection/TokenSection";
 export interface IToken {
   id: string;
   amount: number;
+  sum: number;
 }
 
 export let selectedTokens: IToken[] = [];
