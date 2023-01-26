@@ -79,6 +79,12 @@ const TokenElement: FC<ITokenElement> = ({
             );
             const array = myTokens.filter((element) => element.id !== id);
             setMyTokens([...array]);
+
+            const sum = selectedTokens.reduce((acc, element) => {
+              return acc + element.sum;
+            }, 0);
+            localStorage.setItem("sum", JSON.stringify(sum));
+            setSum(sum);
           }
         }}
       >
@@ -100,7 +106,7 @@ export const TokenSection: FC<{
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getInfoToken(selectedTokens).then((array) => setMyToken([...array]));
+      setReload(true);
     }, 60000);
     return () => clearInterval(interval);
   }, []);
