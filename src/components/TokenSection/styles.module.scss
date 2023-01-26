@@ -5,9 +5,9 @@
 }
 
 .element {
-  width: 50vw;
+  width: 60vw;
   display: grid;
-  grid-template-columns: 0.5fr 1fr 0.5fr 2fr 1fr 1fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 0.5fr 2fr 1fr 1fr 0.5fr 0.5fr;
   align-items: center;
   padding: 10px 0;
   border-bottom: #C2C2C2 solid 1px;
@@ -17,7 +17,7 @@
     height: 2.5vw;
   }
 
-  p {
+  span {
     overflow: hidden;
     text-align: center;
   }
@@ -29,4 +29,27 @@
 
 .red {
   color: red;
+}
+
+button {
+  justify-self: center;
+  width: 50%;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.3em 0.3em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+@media (prefers-color-scheme: light) {
+  button {
+    background-color: #f9f9f9;
+  }
 }

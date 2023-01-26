@@ -3,6 +3,7 @@
   align-items: center;
   width: 27vw;
   position: relative;
+  margin-top: 10vw;
 }
 
 input {
@@ -16,6 +17,7 @@ input {
   background-color: #1a1a1a;
   transition: border-color 0.25s;
   outline: 0;
+  box-sizing: border-box;
 }
 
 input:hover {
@@ -32,7 +34,7 @@ input:hover {
   position: absolute;
   border-radius: 8px;
   top: 2.5em;
- background-color: #1a1a1a;
+  background-color: #1a1a1a;
 }
 
 ::-webkit-scrollbar {

@@ -3,7 +3,12 @@ import styles from "./styles.module.scss";
 import { IMyToken, getInfoToken } from "../TokenSection/updatePrice";
 import { IToken } from "../../App";
 
-const TokenElement: FC<IMyToken> = ({
+interface ITokenElement extends IMyToken {
+  selectedTokens: IToken[];
+  setMyTokens: React.Dispatch<React.SetStateAction<IMyToken[]>>;
+}
+
+const TokenElement: FC<ITokenElement> = ({
   id,
   name,
   image,
@@ -12,6 +17,7 @@ const TokenElement: FC<IMyToken> = ({
   price,
   priceChange,
   selectedTokens,
+  setMyTokens,
 }) => {
   const [input, setInput] = useState(amount?.toString());
 
@@ -19,7 +25,7 @@ const TokenElement: FC<IMyToken> = ({
     <li className={styles.element}>
       <img src={image} alt={name} />
       <h3>{name}</h3>
-      <p>{symbol.toUpperCase()}</p>
+      <span>{symbol.toUpperCase()}</span>
       <input
         type="text"
         value={input}
@@ -44,11 +50,32 @@ const TokenElement: FC<IMyToken> = ({
           }
         }}
       />
-      <p>{`${(Number(input) * price).toFixed(2)}$`}</p>
-      <p>{`${price}$`}</p>
-      <p className={priceChange > 0 ? styles.green : styles.red}>{`${
+      <span>{`${(Number(input) * price).toFixed(2)}$`}</span>
+      <span>{`${price}$`}</span>
+      <span className={priceChange > 0 ? styles.green : styles.red}>{`${
         priceChange !== null ? priceChange.toFixed(2) : "-"
-      }%`}</p>
+      }%`}</span>
+      <button
+        onClick={() => {
+          if (selectedTokens) {
+            const index = selectedTokens.findIndex(
+              (element) => element.id === id
+            );
+            selectedTokens.splice(index, 1);
+            localStorage.setItem(
+              "selectedTokens",
+              JSON.stringify(selectedTokens)
+            );
+            setMyTokens((prev) => {
+              const index = prev.findIndex((element) => element.id === id);
+              prev.splice(index, 1);
+              return [...prev];
+            });
+          }
+        }}
+      >
+        x
+      </button>
     </li>
   );
 };
@@ -56,7 +83,8 @@ const TokenElement: FC<IMyToken> = ({
 export const TokenSection: FC<{
   selectedTokens: IToken[];
   reload: boolean;
-}> = ({ selectedTokens, reload }) => {
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ selectedTokens, reload, setReload }) => {
   const [myToken, setMyToken] = useState([] as IMyToken[]);
 
   useEffect(() => {
@@ -68,16 +96,12 @@ export const TokenSection: FC<{
 
   if (reload) {
     getInfoToken(selectedTokens).then((array) => setMyToken([...array]));
+    setReload(false);
   }
 
   return (
     <>
       <h2>My Tokens</h2>
-      <button
-        onClick={() =>
-          getInfoToken(selectedTokens).then((array) => setMyToken([...array]))
-        }
-      ></button>
       <ul>
         {myToken.map(({ id, name, image, symbol, price, priceChange }) => {
           return (
@@ -87,12 +111,13 @@ export const TokenSection: FC<{
               name={name}
               image={image}
               amount={
-                selectedTokens.find((element) => element.id === id)!.amount
+                selectedTokens.find((element) => element.id === id)?.amount
               }
               symbol={symbol}
               price={price}
               priceChange={priceChange}
               selectedTokens={selectedTokens}
+              setMyTokens={setMyToken}
             />
           );
         })}

@@ -5,30 +5,32 @@ import { TokenSection } from "./components/TokenSection/TokenSection";
 
 export interface IToken {
   id: string;
-  name: string;
   amount: number;
 }
 
-export const selectedTokens: IToken[] = [];
+export let selectedTokens: IToken[] = [];
 
 function App() {
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("selectedTokens")) {
-      selectedTokens.push(
-        ...JSON.parse(localStorage.getItem("selectedTokens") as string)
+      selectedTokens = JSON.parse(
+        localStorage.getItem("selectedTokens") as string
       );
     }
+    setReload(true);
   }, []);
 
   return (
     <div className={styles.app}>
-      <div>
-        <SearchBar selectedTokens={selectedTokens} setReload={setReload} />
-      </div>
+      <SearchBar selectedTokens={selectedTokens} setReload={setReload} />
       <h1>Dashboard</h1>
-      <TokenSection selectedTokens={selectedTokens} reload={reload} />
+      <TokenSection
+        selectedTokens={selectedTokens}
+        reload={reload}
+        setReload={setReload}
+      />
     </div>
   );
 }

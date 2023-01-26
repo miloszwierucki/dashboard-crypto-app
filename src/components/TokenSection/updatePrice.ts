@@ -9,7 +9,6 @@ export interface IMyToken {
   symbol: string;
   price: number;
   priceChange: number;
-  selectedTokens?: IToken[];
 }
 
 export const getInfoToken = async (selectedTokens: IToken[]) => {

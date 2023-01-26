@@ -19,7 +19,7 @@ const ListElement: FC<ISetSelectedTokens> = ({
       className={styles.element}
       onClick={() => {
         if (!selectedTokens.find((element) => element.id === id)) {
-          selectedTokens.push({ id, name, amount: 0 });
+          selectedTokens.push({ id, amount: 0 });
           localStorage.setItem(
             "selectedTokens",
             JSON.stringify(selectedTokens)
