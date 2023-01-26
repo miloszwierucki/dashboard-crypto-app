@@ -5,6 +5,7 @@ import { IToken } from "../../App";
 
 interface ITokenElement extends IMyToken {
   selectedTokens: IToken[];
+  myTokens: IMyToken[];
   setMyTokens: React.Dispatch<React.SetStateAction<IMyToken[]>>;
 }
 
@@ -17,6 +18,7 @@ const TokenElement: FC<ITokenElement> = ({
   price,
   priceChange,
   selectedTokens,
+  myTokens,
   setMyTokens,
 }) => {
   const [input, setInput] = useState(amount?.toString());
@@ -66,11 +68,8 @@ const TokenElement: FC<ITokenElement> = ({
               "selectedTokens",
               JSON.stringify(selectedTokens)
             );
-            setMyTokens((prev) => {
-              const index = prev.findIndex((element) => element.id === id);
-              prev.splice(index, 1);
-              return [...prev];
-            });
+            const array = myTokens.filter((element) => element.id !== id);
+            setMyTokens([...array]);
           }
         }}
       >
@@ -117,6 +116,7 @@ export const TokenSection: FC<{
               price={price}
               priceChange={priceChange}
               selectedTokens={selectedTokens}
+              myTokens={myToken}
               setMyTokens={setMyToken}
             />
           );
