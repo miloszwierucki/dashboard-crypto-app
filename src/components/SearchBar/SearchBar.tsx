@@ -1,16 +1,30 @@
 import { FC, useState } from "react";
-import { searchList } from "./searchList";
 import styles from "./styles.module.scss";
-import { ITokenSearch } from "./searchList";
-import { myTokenList } from "../TokenSection/updatePrice";
+import { tokens, ITokenSearch } from "./searchList";
+import { IToken } from "../../App";
 
-const ListElement: FC<ITokenSearch> = ({ name, id }) => {
+interface ISetSelectedTokens extends ITokenSearch {
+  selectedTokens: IToken[];
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ListElement: FC<ISetSelectedTokens> = ({
+  name,
+  id,
+  selectedTokens,
+  setReload,
+}) => {
   return (
     <li
       className={styles.element}
       onClick={() => {
-        if (!myTokenList.find((element) => element === id)) {
-          myTokenList.push(id);
+        if (!selectedTokens.find((element) => element.id === id)) {
+          selectedTokens.push({ id, name, amount: 0 });
+          localStorage.setItem(
+            "selectedTokens",
+            JSON.stringify(selectedTokens)
+          );
+          setReload(true);
         }
       }}
     >
@@ -19,8 +33,10 @@ const ListElement: FC<ITokenSearch> = ({ name, id }) => {
   );
 };
 
-export const SearchBar = () => {
-  const [tokens, setTokens] = useState([] as ITokenSearch[]);
+export const SearchBar: FC<{
+  selectedTokens: IToken[];
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ selectedTokens, setReload }) => {
   const [search, setSearch] = useState("");
 
   return (
@@ -32,22 +48,24 @@ export const SearchBar = () => {
           setSearch(e.target.value);
         }}
       />
-      <button
-        onClick={async () => {
-          const array: ITokenSearch[] = await searchList();
-          setTokens([...array]);
-        }}
-      >
-        Fetch Data
-      </button>
       {search && (
         <ul className={styles.list}>
           {tokens
-            .filter((element) =>
-              element.name.toLowerCase().includes(search.toLowerCase())
+            .filter(
+              (element) =>
+                element.name.toLowerCase().includes(search.toLowerCase()) ||
+                element.symbol?.toLowerCase().includes(search.toLowerCase())
             )
             .map(({ id, name }) => {
-              return <ListElement key={id} name={name} id={id} />;
+              return (
+                <ListElement
+                  key={id}
+                  name={name}
+                  id={id}
+                  selectedTokens={selectedTokens}
+                  setReload={setReload}
+                />
+              );
             })}
         </ul>
       )}
