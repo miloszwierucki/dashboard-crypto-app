@@ -1,0 +1,27 @@
+.element {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.5fr 2fr 1fr 1fr 0.5fr 0.5fr;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: #C2C2C2 solid 1px;
+  font-size: 0.9em;
+
+  img {
+    width: 2.5vw;
+    height: 2.5vw;
+  }
+
+  span {
+    overflow: hidden;
+    text-align: center;
+  }
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

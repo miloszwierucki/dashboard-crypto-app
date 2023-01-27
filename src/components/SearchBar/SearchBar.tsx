@@ -17,21 +17,39 @@ const ListElement: FC<ISetSelectedTokens> = ({
   setReload,
 }) => {
   return (
-    <li
-      className={styles.element}
-      onClick={() => {
-        if (!selectedTokens.find((element) => element.id === id)) {
-          selectedTokens.push({ id, amount: 0, sum: 0 });
-          localStorage.setItem(
-            "selectedTokens",
-            JSON.stringify(selectedTokens)
-          );
-          setReload(true);
-          setSearch("");
-        }
-      }}
-    >
-      {name}
+    <li className={styles.element}>
+      <div
+        className={styles["add-to-my-list"]}
+        onClick={() => {
+          if (!selectedTokens.find((element) => element.id === id)) {
+            selectedTokens.push({ id, amount: 0, sum: 0, owned: true });
+            localStorage.setItem(
+              "selectedTokens",
+              JSON.stringify(selectedTokens)
+            );
+            setReload(true);
+            setSearch("");
+          }
+        }}
+      >
+        {name}
+      </div>
+      <div
+        className={styles["add-to-whitelist"]}
+        onClick={() => {
+          if (!selectedTokens.find((element) => element.id === id)) {
+            selectedTokens.push({ id, amount: 0, sum: 0, owned: false });
+            localStorage.setItem(
+              "selectedTokens",
+              JSON.stringify(selectedTokens)
+            );
+            setReload(true);
+            setSearch("");
+          }
+        }}
+      >
+        {"<3"}
+      </div>
     </li>
   );
 };

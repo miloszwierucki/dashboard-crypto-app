@@ -9,6 +9,7 @@ export interface IMyToken {
   symbol: string;
   price: number;
   priceChange: number;
+  owned?: boolean;
 }
 
 export const getInfoToken = async (selectedTokens: IToken[]) => {
@@ -32,6 +33,7 @@ export const getInfoToken = async (selectedTokens: IToken[]) => {
           symbol: element.symbol,
           price: element.current_price,
           priceChange: element.price_change_percentage_24h,
+          owned: selectedTokens.find((token) => token.id === element.id)!.owned,
         };
         tokensTemp.push(token);
       });

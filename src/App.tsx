@@ -7,6 +7,7 @@ export interface IToken {
   id: string;
   amount: number;
   sum: number;
+  owned: boolean;
 }
 
 export let selectedTokens: IToken[] = [];

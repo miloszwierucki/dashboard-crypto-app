@@ -55,14 +55,32 @@ input:hover {
 }
 
 .element {
-  padding: 0.3em;
+  padding-right: 0.3em;
   cursor: pointer;
   border: 1px solid transparent;
   transition: border-color 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .element:hover {
   border: #646cff solid 1px;
+}
+
+.add-to-my-list {
+  padding: 0.3em;
+  width: 100%;
+}
+
+.add-to-whitelist {
+  border-radius: 8px;
+  padding: 0.1em 0.3em;
+  transition: background-color 0.25s;
+}
+
+.add-to-whitelist:hover {
+  background-color: #646cff;
 }
 
 @media (prefers-color-scheme: light) {
