@@ -5,6 +5,7 @@ import { IToken } from "../../App";
 
 interface ISetSelectedTokens extends ITokenSearch {
   selectedTokens: IToken[];
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -12,6 +13,7 @@ const ListElement: FC<ISetSelectedTokens> = ({
   name,
   id,
   selectedTokens,
+  setSearch,
   setReload,
 }) => {
   return (
@@ -25,6 +27,7 @@ const ListElement: FC<ISetSelectedTokens> = ({
             JSON.stringify(selectedTokens)
           );
           setReload(true);
+          setSearch("");
         }
       }}
     >
@@ -44,6 +47,7 @@ export const SearchBar: FC<{
       <input
         type="text"
         placeholder="Search..."
+        value={search}
         onChange={(e) => {
           setSearch(e.target.value);
         }}
@@ -64,6 +68,7 @@ export const SearchBar: FC<{
                   id={id}
                   selectedTokens={selectedTokens}
                   setReload={setReload}
+                  setSearch={setSearch}
                 />
               );
             })}
