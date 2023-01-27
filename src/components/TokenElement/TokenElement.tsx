@@ -62,7 +62,7 @@ export const TokenElement: FC<ITokenElement> = ({
         }}
       />
       <span>{`${(Number(input) * price).toFixed(2)}$`}</span>
-      <span>{`${price}$`}</span>
+      <span>{`${price !== null ? price : "-"}$`}</span>
       <span className={priceChange > 0 ? styles.green : styles.red}>{`${
         priceChange !== null ? priceChange.toFixed(2) : "-"
       }%`}</span>

@@ -25,7 +25,7 @@ export const WhitelistTokenElement: FC<ITokenElement> = ({
       <img src={image} alt={name} />
       <h3>{name}</h3>
       <span>{symbol.toUpperCase()}</span>
-      <span>{`${price}$`}</span>
+      <span>{`${price !== null ? price : "-"}$`}</span>
       <span className={priceChange > 0 ? styles.green : styles.red}>{`${
         priceChange !== null ? priceChange.toFixed(2) : "-"
       }%`}</span>
