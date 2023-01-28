@@ -47,7 +47,7 @@ export const WhitelistTokenElement: FC<ITokenElement> = ({
           }
         }}
       >
-        {"<-"}
+        {"≪"}
       </button>
       <button
         onClick={() => {
@@ -70,7 +70,7 @@ export const WhitelistTokenElement: FC<ITokenElement> = ({
           }
         }}
       >
-        x
+        {"×"}
       </button>
     </li>
   );

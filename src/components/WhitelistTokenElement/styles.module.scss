@@ -4,7 +4,7 @@
   grid-template-columns: 0.5fr 1fr 0.5fr 1fr 0.5fr 0.5fr 0.5fr;
   align-items: center;
   padding: 10px 0;
-  border-bottom: #C2C2C2 solid 1px;
+  border-bottom: #555 solid 1px;
   font-size: 0.9em;
 
   img {
@@ -24,4 +24,17 @@
 
 .red {
   color: red;
+}
+
+@media (prefers-color-scheme: light) {
+  .elementWhiteList {
+    border-bottom: #C2C2C2 solid 1px;
+  }
+}
+
+@media (orientation: portrait) {
+  .elementWhiteList img {
+    width: 4.5vw;
+    height: 4.5vw;
+  }
 }

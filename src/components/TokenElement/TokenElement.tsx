@@ -88,7 +88,7 @@ export const TokenElement: FC<ITokenElement> = ({
           }
         }}
       >
-        x
+        {"×"}
       </button>
     </li>
   );

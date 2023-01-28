@@ -33,6 +33,7 @@ function App() {
         reload={reload}
         setReload={setReload}
       />
+      <footer>© ALL RIGHTS RESERVED | Built by Miłosz Wierucki</footer>
     </div>
   );
 }

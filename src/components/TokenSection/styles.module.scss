@@ -11,7 +11,7 @@ ul {
   flex-direction: row;
 
   h2 {
-    margin: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -52,3 +52,19 @@ button:hover {
   }
 }
 
+@media (orientation: portrait) {
+  .tokenSection {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sectionList {
+    width: 90%;
+  }
+
+  .sectionWhitelist {
+    width: 90%;
+    margin-top: 3em;
+  }
+}

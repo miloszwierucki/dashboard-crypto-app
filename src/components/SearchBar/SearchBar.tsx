@@ -48,7 +48,7 @@ const ListElement: FC<ISetSelectedTokens> = ({
           }
         }}
       >
-        {"<3"}
+        {"☆"}
       </div>
     </li>
   );
